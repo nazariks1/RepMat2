@@ -82,7 +82,7 @@ async def receive_solution_text(update: Update, context: ContextTypes.DEFAULT_TY
     solution_text = update.message.text
     existing = context.user_data.get("solution_text", "")
     context.user_data["solution_text"] = (existing + "\n" + solution_text) if existing else solution_text
-    await update.message.reply_text("✅ *Текст принят!* Можете добавить ещё или написать /done")
+    await update.message.reply_text("✅ <b>Текст принят!</b> Можете добавить ещё или написать /done", parse_mode="HTML")
     return WAITING_SOLUTION
 
 
@@ -94,11 +94,11 @@ async def receive_solution_photo(update: Update, context: ContextTypes.DEFAULT_T
         context.user_data["solution_photos"] = []
     context.user_data["solution_photos"].append(bytes(file_bytes))
     count = len(context.user_data["solution_photos"])
-    await update.message.reply_text(f"*✅ Фото {count} принято!* Можете прислать ещё или написать /done, чтобы завершить. ")
+    await update.message.reply_text(f"<b>✅ Фото {count} принято!</b> Можете прислать ещё или написать /done, чтобы завершить. ", parse_mode="HTML")
     return WAITING_SOLUTION
 
 async def done(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    await update.message.reply_text("⏳ Изображения распознаются...")
+    await update.message.reply_text("⏳ Решения распознаются...")
     task_text = context.user_data.get("task", "")
     task_photo = context.user_data.get("task_photo")
     if task_photo and not task_text:
@@ -110,18 +110,18 @@ async def done(update: Update, context: ContextTypes.DEFAULT_TYPE):
         solution_text = recognized + ("\n" + solution_text if solution_text else "")
     if len(task_text) <= 500:
         if len(solution_text) <= 500:
-            preview = f"*📋 Распознано:*\n\nЗадача:\n{task_text}\n\nРешение:\n{solution_text}"
+            preview = f"📋 Распознано:n\nЗадача:\n{task_text}\n\nРешение:\n{solution_text}"
         else:
-            preview = f"*📋 Распознано:*\n\nЗадача:\n{task_text}\n\nРешение:\n{solution_text[:500]}..."
+            preview = f"📋 Распознано:\n\nЗадача:\n{task_text}\n\nРешение:\n{solution_text[:500]}..."
     else:
         if len(solution_text) <= 500:
-            preview = f"*📋 Распознано:*\n\nЗадача:\n{task_text[:500]}...\n\nРешение:\n{solution_text}"
+            preview = f"📋 Распознано:\n\nЗадача:\n{task_text[:500]}...\n\nРешение:\n{solution_text}"
         else:
-            preview = f"*📋 Распознано:*\n\nЗадача:\n{task_text[:500]}...\n\nРешение:\n{solution_text[:500]}..."
+            preview = f"📋 Распознано:\n\nЗадача:\n{task_text[:500]}...\n\nРешение:\n{solution_text[:500]}..."
     await update.message.reply_text(preview)
     await update.message.reply_text(
-        "⁉ *Всё верно?* Если текст с изображений распознался плохо  — отмените через /cancel.\n\n"
-        "Продолжается проверка..."
+        "⁉ <b>Всё верно?</b> Если текст с изображений распознался плохо  — отмените через /cancel.\n\n"
+        "Продолжается проверка...", parse_mode="HTML"
     )
     result = await check_solution_safe(task_text, solution_text)
     await asyncio.to_thread(
@@ -137,8 +137,9 @@ async def done(update: Update, context: ContextTypes.DEFAULT_TYPE):
     context.user_data["solution_text_for_qa"] = solution_text
     context.user_data["check_result_for_qa"] = result
     await update.message.reply_text(
-        "*Есть вопросы по решению или разбору?* Напишите их текстом - постараюсь ответить подробно 🙂\n\n",
+        "<b> Есть вопросы по решению или разбору? </b> Напишите их текстом - постараюсь ответить подробно 🙂\n\n",
         reply_markup=_question_keyboard(),
+        parse_mode="HTML"
     )
     return WAITING_QUESTION
 

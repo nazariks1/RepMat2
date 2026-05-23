@@ -51,7 +51,7 @@ def main():
         )
         app.add_handler(CommandHandler("start", start))
         app.add_handler(CommandHandler("help", help_command))
-        app.add_handler(CommandHandler("cancel", cancel))  # ← добавь эту строку
+        app.add_handler(CommandHandler("cancel", cancel))
         app.add_handler(MessageHandler(filters.Regex("^ℹ️ Помощь$"), help_command))
         app.add_handler(MessageHandler(filters.Regex("^👥 Поддержка$"), support))
 

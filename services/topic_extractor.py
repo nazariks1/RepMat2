@@ -5,7 +5,7 @@ from config import OPENROUTER_API_KEY
 OPENROUTER_URL = "https://openrouter.ai/api/v1/chat/completions"
 TEXT_MODELS = [
     "openrouter/auto",
-    "meta-llama/llama-4-maverick:free",
+    "meta-llama/llama-4-maverick",
     "deepseek/deepseek-r1:free",
     "mistralai/mistral-7b-instruct:free",
 ]

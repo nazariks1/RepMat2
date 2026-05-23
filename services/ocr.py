@@ -4,8 +4,9 @@ from config import OPENROUTER_API_KEY
 OPENROUTER_URL = "https://openrouter.ai/api/v1/chat/completions"
 VISION_MODELS = [
     "openrouter/auto",
-    "meta-llama/llama-4-maverick:free",
-    "nvidia/nemotron-3-nano-omni-48b:free",
+    "google/gemini-2.0-flash-exp:free",
+    "meta-llama/llama-4-maverick",
+    "microsoft/phi-4-multimodal-instruct:free",
 ]
 TASK_PROMPT = """Перед тобой фото или скриншот условия математической задачи.
 Точно перепиши всё что написано:

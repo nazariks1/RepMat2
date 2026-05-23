@@ -118,6 +118,11 @@ _MATH_REPLACEMENTS = [
     (r"\bigr",          r"\right"),
     (r"\Bigl",          r"\left"),
     (r"\Bigr",          r"\right"),
+    (r"\ge",            r"\geq"),
+    (r"\le",            r"\leq"),
+    (r"\ne",            r"\neq"),
+    (r"\to",            r"\rightarrow"),
+    (r"\gets",          r"\leftarrow"),
 ]
 _COMMANDS_STRIP_ARG = [
     r"\hspace", r"\vspace", r"\mkern", r"\mskip", r"\kern",
